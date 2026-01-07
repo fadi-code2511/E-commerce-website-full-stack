@@ -1,5 +1,6 @@
 import React from 'react'
 import TopBar from '../Layout/TopBar'
+import Navbar from './Navbar'
 
 const Header = () => {
   return (
@@ -7,6 +8,7 @@ const Header = () => {
         {/* topBar */}
         <TopBar />
         {/* navBar */}
+        <Navbar />
         {/* cartDrawer */}
     </div>
   )

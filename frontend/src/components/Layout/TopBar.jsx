@@ -9,13 +9,13 @@ const TopBar = () => {
     <div className='bg-green-600 text-white'>
         <div className='container mx-auto flex items-center justify-between px-5 py-3'>
             <div className='  md:flex  hidden space-x-3  items-center'>
-                <a href="" className='hover:text-fuchsia-400'>
+                <a href="" className='hover:text-gray-400'>
                     <CiFacebook  className=" h-5 w-5" />
                 </a>
-                <a href="" className='hover:text-fuchsia-400'>
+                <a href="" className='hover:text-gray-400'>
                     <IoLogoInstagram  className=" h-5 w-5" />
                 </a>
-                <a href="" className='hover:text-fuchsia-400'>
+                <a href="" className='hover:text-gray-400'>
                     <CiTwitter  className=" h-5 w-5" />
                 </a>
             </div>
