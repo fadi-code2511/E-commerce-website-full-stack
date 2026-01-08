@@ -8,8 +8,13 @@ import { useState } from "react";
 function Navbar() {
 
     const [drawOpen,setDrawOpen]=useState(false);
+    const [menuBurgerOpen,setMenuBurger]=useState(false)
     function toggleCartDrawer(){
         setDrawOpen(!drawOpen)
+    }
+
+    function toggleMenuBurger(){
+      setMenuBurger(!menuBurgerOpen)
     }
 
   return (
@@ -67,12 +72,15 @@ function Navbar() {
           </div>
 
           {/* menuBurger */}
+
           <button className="hover:text-black md:hidden">
             <HiBars3BottomRight className="h-6 w-6 text-gray-700" />
           </button>
         </div>
       </nav>
       <CartDrawer drawOpen={drawOpen} toggleCartDrawer={toggleCartDrawer} />
+      {/* mobile navigation */}
+      
     </>
    
     
