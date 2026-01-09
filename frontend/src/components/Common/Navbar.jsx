@@ -22,7 +22,7 @@ function Navbar() {
       <nav className="container  flex justify-between  py-4 px-6 mx-auto">
         {/* logo-left */}
         <div>
-          <Link to="/" className="text-2xl font-medium hover:text-green-600">
+          <Link to="/" className="text-2xl font-medium hover:text-green-600 uppercase">
             Trendy
           </Link>
         </div>
@@ -87,7 +87,7 @@ function Navbar() {
       <CartDrawer drawOpen={drawOpen} toggleCartDrawer={toggleCartDrawer} />
       {/* mobile navigation */}
       <div
-        className={` flex flex-col bg-yellow-100 top-0 left-0 h-full fixed shadow-lg   transation-transform duration-300 w-3/4 md:w-1/3 sm:w-1/2 ${
+        className={` flex flex-col bg-white/95 top-0 left-0 h-full fixed shadow-lg z-50  transation-transform duration-300 w-3/4 md:w-1/3 sm:w-1/2 ${
           menuBurgerOpen ? "translate-x-0" : "-translate-x-full"
         }`}
       >
