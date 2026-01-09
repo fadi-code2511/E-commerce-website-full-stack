@@ -19,11 +19,11 @@ function Navbar() {
 
   return (
     <>
-      <nav className="container  bg-slate-100 flex justify-between  py-4 px-6 mx-auto">
+      <nav className="container  flex justify-between  py-4 px-6 mx-auto">
         {/* logo-left */}
         <div>
-          <Link to="/" className="text-2xl font-medium">
-            Rabbit
+          <Link to="/" className="text-2xl font-medium hover:text-green-600">
+            Trendy
           </Link>
         </div>
         {/* Navigation-links-middle */}
