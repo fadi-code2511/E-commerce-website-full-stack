@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import UserLayout from "./components/Layout/UserLayout";
 import Home from "./pages/Home";
 import {Toaster} from "sonner"
+import Login from "./pages/Login";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
         {/*user layout*/}
         <Route path="/" element={<UserLayout />}> 
           <Route path="/" element={<Home />}></Route>
+          <Route path="login" element={<Login />}></Route>
         </Route>
         {/*admin layout*/}
         <Route></Route> 

@@ -37,9 +37,6 @@ const FeaturedSection = () => {
            100% secured checkout
           </p>
         </div>
-        <h1>ssss</h1>
-        <h1>sssds</h1>
-        <h1>ssdsass</h1>
       </div>
     </section>
   );
