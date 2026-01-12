@@ -3,6 +3,8 @@ import GenderCollectionSection from "../components/Products/GenderCollectionSect
 import NewArrivals from "../components/Products/NewArrivals"
 import ProductsDetails from "../components/Products/ProductsDetails"
 import ProudctsGrid from "../components/Products/ProudctsGrid"
+import FeaturedCollection from "../components/Products/FeaturedCollection"
+import FeaturedSection from "../components/Products/FeaturedSection"
 
 const placeHolderProducts=[
   {
@@ -77,6 +79,8 @@ function Home(){
             <h2 className="text-2xl text-center font-bold mb-2"> Top Women Wears</h2>
             <ProudctsGrid products={placeHolderProducts} />
         </div>
+        <FeaturedCollection />
+        <FeaturedSection />
     </div>
 }
 
