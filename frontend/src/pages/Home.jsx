@@ -9,7 +9,7 @@ function Home(){
         <GenderCollectionSection />
         <NewArrivals />
         {/* best seller */}
-        <h2 className="text-3xl font-bold mb-4 text-center">Best seller</h2>
+        <h2 className="text-3xl font-bold mb-2 text-center">Best seller</h2>
         <ProductsDetails />
     </div>
 }
