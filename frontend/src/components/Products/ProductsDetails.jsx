@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
+import ProudctsGrid from "./ProudctsGrid";
 
 const selectedProduct = {
   name: "short jeans",
@@ -21,6 +22,38 @@ const selectedProduct = {
     },
   ],
 };
+
+const similarProducts = [
+  {
+    _id:1,
+  name: "product1",
+  price: 50,
+  image: [{url:"https://picsum.photos/id/11/500/500"}],
+    
+},
+ 
+  {
+    _id:2,
+  name: "product2",
+  price: 20,
+  image: [{url:"https://picsum.photos/id/22/500/500"}],
+
+},
+  {
+    _id:3,
+  name: "product3",
+  price: 30,
+  image: [{url:"https://picsum.photos/id/33/500/500"}],
+
+},
+  {
+    _id:4,
+  name: "product4",
+  price: 40,
+  image: [{url:"https://picsum.photos/id/44/500/500"}],
+
+}
+];
 
 const ProductsDetails = () => {
   const [mainImage, setMainImage] = useState("");
@@ -211,6 +244,11 @@ const ProductsDetails = () => {
               </table>
             </div>
           </div>
+        </div>
+
+        <div className="mt-20">
+          <h2 className="text-2xl text-center font-medium mb-4">You may also like</h2>
+          < ProudctsGrid  products={similarProducts}/>
         </div>
       </div>
     </div>
