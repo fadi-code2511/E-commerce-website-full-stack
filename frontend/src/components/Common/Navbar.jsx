@@ -29,7 +29,7 @@ function Navbar() {
         {/* Navigation-links-middle */}
         <div className=" md:flex hidden space-x-6">
           <Link
-            to="#"
+            to="/collection/all"
             className=" text-sm font-medium text-gray-700 hover:text-black uppercase"
           >
             men
