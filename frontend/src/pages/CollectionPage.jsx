@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Products/FilterSidebar";
 import ProudctsGrid from "../components/Products/ProudctsGrid";
+import SortOptions from "../components/Products/SortOptions";
 
 const CollectionPage = () => {
   const [products, setProducts] = useState([]);
@@ -18,7 +19,7 @@ const CollectionPage = () => {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  },[]);
+  }, []);
 
   function toggleSidebar() {
     setisSidebarOpen(!isSidebarOpen);
@@ -91,7 +92,7 @@ const CollectionPage = () => {
       </button>
 
       {/* filter sidebar */}
-       <div
+      <div
         ref={sidebarRef}
         className={` ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full"
@@ -99,10 +100,14 @@ const CollectionPage = () => {
       >
         <FilterSidebar />
       </div>
-      <div>
+
+      <div className="flex-grow p-4">
+        <h1 className="text-2xl uppercase mb-4">all collection</h1>
+        {/* sort options */}
+        <SortOptions />
+        {/* products grid */}
         <ProudctsGrid products={products} />
       </div>
-      
     </div>
   );
 };
