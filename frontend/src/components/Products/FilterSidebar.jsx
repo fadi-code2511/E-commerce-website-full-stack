@@ -65,7 +65,7 @@ const FilterSidebar = () => {
     // console.log(Object.keys(newFilters)) 
     Object.keys(newFilters).forEach((key) => {
       if (Array.isArray(newFilters[key]) && newFilters[key].length > 0) {
-        params.append(key, newFilters[key].join(","));
+        params.append(key, newFilters[key].join(","));  // we used .join becouse the url doesn't understad array , so we need to to convert it a string "S,M,L" instead of ["S","M","L"]
         // console.log(params,"@@");
       } else if (newFilters[key]) {
         params.append(key, newFilters[key]);
@@ -73,6 +73,8 @@ const FilterSidebar = () => {
       }
     });
     setSearchParams(params);
+    // console.log(params.toString());
+    
     navigate(`?${params.toString()}`);
   }
 
