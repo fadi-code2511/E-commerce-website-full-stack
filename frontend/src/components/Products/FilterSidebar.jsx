@@ -14,7 +14,7 @@ const FilterSidebar = () => {
     minPrice: 0,
     maxPrice: 100,
   });
-  const [priceRange, setPriceRange] = useState([0, 100]);
+  const [priceRange, setPriceRange] = useState([0, searchParams.get("maxPrice") || 100]);
 
   const categories = ["Top Wear", "Bottom Wear"];
   const colors = ["red", "black", "blue", "yellow", "gray", "green", "Pink"];
