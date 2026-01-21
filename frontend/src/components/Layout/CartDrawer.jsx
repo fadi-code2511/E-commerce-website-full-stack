@@ -1,9 +1,15 @@
 import React, { useState } from 'react'
 import { IoMdClose } from "react-icons/io";
 import CartContents from '../Cart/CartContents';
+import { useNavigate } from 'react-router';
 
 
 const CartDrawer = ({toggleCartDrawer,drawOpen}) => {
+  const navigate=useNavigate()
+
+  const handleCheckOut=()=>{
+    navigate("/checkout")
+  }
     
   return (
     <div className={`w-3/4 sm:w-1/2 md:w-[30rem] bg-white/95 z-50 fixed h-full top-0 right-0 flex  flex-col transition delay-100 ${drawOpen? "taranlate-x-0" : "translate-x-full"}  `}>
@@ -21,7 +27,8 @@ const CartDrawer = ({toggleCartDrawer,drawOpen}) => {
         
         </div>
         <div className='flex  flex-col sticky  bottom-0 p-4  bg-gray-100 justify-center items-center border-t-2 '>
-          <button className='text-white w-full bg-black hover:bg-gray-600 py-3 rounded-lg transition '>checkout</button>
+          <button onClick={handleCheckOut}
+           className='text-white w-full bg-black hover:bg-gray-600 py-3 rounded-lg transition '>checkout</button>
           <p className='text-gray-400 text-sm mt-2'>Included Taxes</p>
         </div>
     </div>
