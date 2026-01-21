@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
-const cart = [
+const cart = {
+  products:[
   {
     name: "staylish jacket",
     size: "M",
@@ -16,21 +17,10 @@ const cart = [
     price: 50,
     images: "https://picsum.photos/id/25/200/200",
   },
-  {
-    name: "staylish2 jacket",
-    size: "M",
-    color: "Black",
-    price: 40,
-    images: "https://picsum.photos/id/26/200/200",
-  },
-  {
-    name: "staylish3 jacket",
-    size: "M",
-    color: "Black",
-    price: 40,
-    images: "https://picsum.photos/id/27/200/200",
-  },
-];
+  
+],
+totalprice:200,
+}
 
 const Checkout = () => {
   const navigate = useNavigate();
@@ -172,7 +162,38 @@ const Checkout = () => {
           <button type="submit" className="bg-black py-2 w-full text-white rounded" >Continue to payment</button>
         </form>
       </div>
-      {/* right-sec: */}
+      {/* right-sec: order summary */}
+      <div className="bg-gray-50 rounded-lg p-6">
+        <h1 className="font-medium text-lg mb-4 ">Order summary </h1>
+        <div className="border-t py-4 mb-4">
+        {cart.products.map((item,index)=>{
+          return <div key={index} className="flex items-start justify-between py-2 border-b ">
+            <div className="flex items-start">
+              <img src={item.images} alt={item.name}  className="w-20 h-24 object-cover mr-4 "/>
+              <div className="flex flex-col ">
+              <p  className="text-md ">{item.name}</p>
+              <p  className="text-sm text-gray-500">Size:{item.size}</p>
+              <p  className="text-sm text-gray-500">Color:{item.color}</p>
+            </div>
+            
+            </div>
+            <h2>{item.price?.toLocaleString()}$</h2>
+        </div>
+        })}
+        </div>
+        <div className="flex justify-between items-center text-lg mb-4  ">
+          <p>Subtotal:</p>
+          <p>{cart.totalprice?.toLocaleString()}$</p>
+        </div>
+        <div className="flex justify-between items-center text-lg mb-4  ">
+          <p>Shipping:</p>
+          <p>Free</p>
+        </div>
+        <div className="flex justify-between items-center text-lg pt-4 border-t ">
+          <p>Total:</p>
+          <p>{cart.totalprice?.toLocaleString()}$</p>
+        </div>
+      </div>
     </div>
   );
 };
