@@ -9,6 +9,7 @@ import CollectionPage from "./pages/CollectionPage";
 import ProductsDetails from "./components/Products/ProductsDetails";
 import Checkout from "./components/Cart/Checkout";
 import OrderConfirmationPage from "./pages/OrderConfirmationPage";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
 
 
 function App() {
@@ -22,10 +23,11 @@ function App() {
           <Route path="login" element={<Login />}></Route>
           <Route path="register" element={<Register />}></Route>
           <Route path="profile" element={<Profile />}></Route>
-          <Route path="collection/:collection" element={<CollectionPage/>}></Route>  
-          <Route path="product/:id" element={<ProductsDetails/>}></Route>
-          <Route path="checkout" element={<Checkout/>}></Route>
+          <Route path="collection/:collection" element={<CollectionPage />}></Route>  
+          <Route path="product/:id" element={<ProductsDetails />}></Route>
+          <Route path="checkout" element={<Checkout />}></Route>
           <Route path="order-confirmation" element={<OrderConfirmationPage />}></Route>
+          <Route path="order/:id" element={<OrderDetailsPage />}></Route>
         </Route>
         {/*admin layout*/}
         <Route></Route> 
