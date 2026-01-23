@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 
 const MyOrdersPage = () => {
+  const navigate=useNavigate()
+  function handleRowClick(id){
+    navigate(`/order/${id}`)
+  }
   const [orders, setOrders] = useState([]);
   useEffect(() => {
     setTimeout(() => {
@@ -58,6 +63,9 @@ const MyOrdersPage = () => {
                   <tr
                     key={order._id}
                     className="border-b hover:border-gray-50 cursor-pointer"
+                    onClick={()=>{
+                      handleRowClick(order._id)
+                    }}
                   >
                     <td className="py-2 px-4 sm:px-4 sm:py-4">
                       <img
