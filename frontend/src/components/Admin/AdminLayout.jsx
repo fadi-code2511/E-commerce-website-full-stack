@@ -65,17 +65,6 @@ const AdminLayout = () => {
       <div className="">
         <p>
           e? Possimus maxime minima
-          accusamus omnis numquam saepe veniam dignissimos, deleniti dolorum
-          dolorem nisi incidunt facilis quod eius laudantium quae corrupti
-          libero modi ut odit repellendus mollitia dolore velit? Pariatur
-          accusamus exercitationem dolores unde placeat, fugiat vitae,
-          necessitatibus eligendi facere repellat laborum nemo sit tenetur.
-          Optio, aliquid? Saepe ipsa ut magni doloremque veniam ullam labore
-          beatae nostrum quis perferendis incidunt dolor aspernatur officiis
-          quas dicta voluptates quasi voluptatem fugiat obcaecati perspiciatis
-          consequatur, asperiores repudiandae facere! Natus dolorum error
-          dolorem enim tempore atque quidem rerum mollitia! Deserunt dolore sed
-          fugit illum quibusdam ad.
         </p>
       </div> */}
     </div>
