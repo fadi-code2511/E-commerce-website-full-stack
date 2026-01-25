@@ -15,6 +15,7 @@ import AdminLayout from "./components/Admin/AdminLayout";
 import AdminHomePage from "./pages/AdminHomePage";
 import UserManagement from "./components/Admin/UserManagement";
 import ProductsManagement from "./components/Admin/ProductsManagement";
+import EditProductPage from "./components/Admin/EditProductPage";
 
 
 function App() {
@@ -40,6 +41,7 @@ function App() {
           <Route index element={<AdminHomePage/>}></Route>
           <Route path="users" element={<UserManagement/>}></Route>
           <Route path="products" element={<ProductsManagement/>}></Route>
+          <Route path="products/:id/edit" element={<EditProductPage/>}></Route>
           
         </Route> 
       </Routes>
