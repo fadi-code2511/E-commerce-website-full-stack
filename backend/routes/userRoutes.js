@@ -1,10 +1,11 @@
 import express from "express";
 import User from "../models/User.js";
 import jwt from "jsonwebtoken";
+import protect from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// register
+// Post api/users/register
 router.post("/register", async (req, res) => {
   const { name, email, password } = req.body;
   try {
@@ -40,7 +41,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// login
+// Post api/users/login
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
   try {
@@ -76,4 +77,10 @@ router.post("/login", async (req, res) => {
     res.status(500).send("Server erorr");
   }
 });
+
+// GET api/users/profile
+router.get("/profile",protect,async (req,res)=>{
+    res.json(req.user) // req.user came from protect middleware.
+})
+
 export default router;
