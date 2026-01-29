@@ -3,6 +3,7 @@ import cors from "cors"
 import dotenv from "dotenv" 
 import connectDB from "./config/db.js"
 import userRoutes from "./routes/userRoutes.js"
+import ProductRoutes from "./routes/ProductRouts.js"
 
 const app=express()
 
@@ -22,6 +23,7 @@ app.get("/",(req,res)=>{
     res.send("Wlc there")
 })
 app.use("/api/users",userRoutes)
+app.use("/api/products",ProductRoutes)
 
 app.listen(PORT,()=>{
     console.log("server is running on prot:",PORT)
