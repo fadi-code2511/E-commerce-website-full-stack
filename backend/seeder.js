@@ -27,7 +27,7 @@ const seedData=async ()=>{
         //assig the user id to each product
         const userID=createdUser._id;
         const sampleProducts=products.map(product=>{
-          return  {...product,userID}
+          return  {...product,user:userID}
         })
 
         await Product.insertMany(sampleProducts);
