@@ -242,6 +242,27 @@ router.get("/best-seller",async (req,res) => {
   }
 })
 
+
+// GET api/products/new-arrivals
+// retrieve latest 8 products based on creation date
+// access publice
+router.get("/new-arrivals",async (req,res) => {
+  try {
+    const latestProducts=await Product.find().sort({createdProduct:-1}).limit(8);
+    if(latestProducts){
+      res.json(latestProducts);
+    }else{
+      res.status(404).send("no new arrivals products")
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"Server Error"});
+  }
+
+})
+
+
+
 //GET api/products/:id
 //get product by ID
 // access public
@@ -282,7 +303,6 @@ router.get("/similar/:id",async (req,res) => {
     res.status(500).send("Server Error")
   }
 })
-
 
 
 
