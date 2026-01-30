@@ -122,4 +122,22 @@ router.put("/:id",protect,admin, async (req, res) => {
   }
 });
 
+// DELETE api/prpducts/:id
+// delete a product
+// access admin/private
+
+router.delete("/:id",protect,admin,async(req,res)=>{
+  try {
+    const product=await Product.findById(req.params.id)
+    if (product) {
+      await product.deleteOne()
+      res.json({message:"Product Deleted"})
+    }else{
+      res.json({message:"Product not found"})
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"server error"})
+  }
+})
 export default router;
