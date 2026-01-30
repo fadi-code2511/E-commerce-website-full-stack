@@ -224,6 +224,24 @@ router.get("/", async (req, res) => {
   }
 });
 
+
+//GET api/products/best-seller
+// Retrive product by highest rating
+// access public
+router.get("/best-seller",async (req,res) => {
+  try {
+    const bestProduct=await Product.find().sort({rating:-1}).limit(1);
+    if (bestProduct){
+      res.json(bestProduct)
+    }else{
+      res.status(404).json({message:"Best seller Product not found"})
+    }
+  } catch (error) {
+   console.error(error);
+    res.status(500).send("Server Error") 
+  }
+})
+
 //GET api/products/:id
 //get product by ID
 // access public
@@ -264,5 +282,8 @@ router.get("/similar/:id",async (req,res) => {
     res.status(500).send("Server Error")
   }
 })
+
+
+
 
 export default router;
