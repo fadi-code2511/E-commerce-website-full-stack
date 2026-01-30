@@ -223,4 +223,22 @@ router.get("/", async (req, res) => {
     res.status(500).send("Server Error")
   }
 });
+
+//GET api/products/:id
+//get product by ID
+// access public
+router.get("/:id",async (req,res) => {
+  try {
+    const product=await Product.findById(req.params.id);
+    if(product){
+      res.json(product);
+    }else{
+      res.status(404).send("Product not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"server Error"})
+  }
+})
+
 export default router;
