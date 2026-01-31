@@ -4,6 +4,7 @@ import dotenv from "dotenv"
 import connectDB from "./config/db.js"
 import userRoutes from "./routes/userRoutes.js"
 import ProductRoutes from "./routes/ProductRouts.js"
+import CartRoutes from "./routes/CartRoutes.js"
 
 const app=express()
 
@@ -24,7 +25,7 @@ app.get("/",(req,res)=>{
 })
 app.use("/api/users",userRoutes)
 app.use("/api/products",ProductRoutes)
-
+app.use("/api/cart",CartRoutes)
 app.listen(PORT,()=>{
     console.log("server is running on prot:",PORT)
 })
