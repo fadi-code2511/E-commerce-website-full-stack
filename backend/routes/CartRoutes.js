@@ -155,4 +155,19 @@ router.delete("/", async (req, res) => {
   }
 });
 
+//rout: GET api/cart
+//desc: display the cart
+//access public
+router.get("/",async (req,res) => {
+  const{userId,guestId}=req.query;
+  try {
+    let cart=await getcart(userId,guestId);
+    if(!cart) return res.status(404).json({message:"Cart not found"});
+    res.status(200).json(cart.products)
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"Server Error"})
+  }
+})
+
 export default router;
