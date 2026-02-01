@@ -10,7 +10,7 @@ const router = express.Router();
 // access public
 const getcart = async (userId, guestId) => {
   if (userId) {
-    return await Cart.findOne({ user:userId });
+    return await Cart.findOne({ user: userId });
   }
   if (guestId) {
     return await Cart.findOne({ guestId });
@@ -23,7 +23,7 @@ router.post("/", async (req, res) => {
     const { productId, size, color, userId, guestId, quantity } = req.body;
 
     const product = await Product.findById(productId);
-    if (!product) res.status(404).json({ message: "product not found" });
+    if (!product) return res.status(404).json({ message: "product not found" });
 
     // determine if the user is logged in or guest
     const cart = await getcart(userId, guestId);
@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
     if (cart) {
       const productIndex = cart.products.findIndex(
         (product) =>
-          product.productId.toLocaleString() === productId &&
+          product.productId.toString() === productId &&
           product.size === size &&
           product.color === color,
       );
@@ -89,33 +89,65 @@ router.put("/", async (req, res) => {
     const { productId, size, color, userId, guestId, quantity } = req.body;
 
     const product = await Product.findById(productId);
-    if (!product) res.status(404).json({ message: "product not found" });
+    if (!product) return res.status(404).json({ message: "product not found" });
 
     // determine if the user is logged in or guest
     const cart = await getcart(userId, guestId);
     // if cart is exist , update the cart
-    if (!cart)  return res.status(404).json({message:"Cart not found"});
-      const productIndex = cart.products.findIndex(
-        (product) =>
-          product.productId.toLocaleString() === productId &&
-          product.size === size &&
-          product.color === color,
-      );
-      if (productIndex > -1) {
-        //if the product is exist, update the quantity
-        if(quantity>0){
-            cart.products[productIndex].quantity = parseInt(quantity);
-        }else{
-            cart.products.splice(productIndex,1); // qauntity=0, remove the product 
-        }
+    if (!cart) return res.status(404).json({ message: "Cart not found" });
+    const productIndex = cart.products.findIndex(
+      (product) =>
+        product.productId.toString() === productId &&
+        product.size === size &&
+        product.color === color,
+    );
+    if (productIndex > -1) {
+      //if the product is exist, update the quantity
+      if (quantity > 0) {
+        cart.products[productIndex].quantity = parseInt(quantity);
+      } else {
+        cart.products.splice(productIndex, 1); // qauntity=0, remove the product
+      }
       cart.totalPrice = cart.products.reduce(
         (accumulator, item) => accumulator + item.price * item.quantity,
         0,
       );
       await cart.save();
       return res.json(cart);
-    }else{
-       return res.status(404).json({message:"product not found"})
+    } else {
+      return res.status(404).json({ message: "product not found" });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
+//route: DELETE api/cart
+//desc: remove a product from the cart
+//access puplic
+router.delete("/", async (req, res) => {
+  const { productId, userId, guestId, size, color } = req.body;
+  try {
+    let cart = await getcart(userId, guestId);
+    if (!cart) return res.status(404).json({ message: "Cart not found" });
+
+    const productIndex = cart.products.findIndex(
+      (product) =>
+        product.productId.toString() === productId &&
+        product.size === size &&
+        product.color === color,
+    );
+    if (productIndex > -1) {
+      cart.products.splice(productIndex, 1);
+      cart.totalPrice = cart.products.reduce(
+        (accumulator, item) => accumulator + item.price * item.quantity,
+        0,
+      );
+      await cart.save();
+      return res.json(cart);
+    } else {
+      res.status(404).json({ message: "Product not found" });
     }
   } catch (error) {
     console.error(error);
