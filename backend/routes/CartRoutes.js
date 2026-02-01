@@ -10,7 +10,7 @@ const router = express.Router();
 // access public
 const getcart = async (userId, guestId) => {
   if (userId) {
-    return await Cart.findOne({ userId });
+    return await Cart.findOne({ user:userId });
   }
   if (guestId) {
     return await Cart.findOne({ guestId });
