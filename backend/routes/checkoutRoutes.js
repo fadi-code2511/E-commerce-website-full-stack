@@ -37,6 +37,31 @@ router.post("/",protect,async(req,res)=>{
     }
 });
 
+//route: PUT api/checkout/:id/pay
+//desc: update checkout to mark as paid after successful payment.
+//access: private
+router.put("/:id/pay",protect,async (req,res) => {
+    const {paymentStatus,paymentDetails}=req.body;
+    try {
+        const checkout=await Checkout.findById(req.params.id);
+        if (!checkout){
+            return res.status(400).json({message:"No checkout session found"})
+        }
+        if(paymentStatus==="Paid"){
+            checkout.isPaid=true;
+            checkout.paymentStatus=paymentStatus;
+            checkout.paymentDetails=paymentDetails;
+            checkout.paidAt=Date.now()
 
+            await checkout.save()
+            res.status(200).json(checkout);
+        }else{
+            res.status(400).json({message:"Invalid payment status"})
+        }
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({message:"Server Error"})
+    }
+})
 
 export default router

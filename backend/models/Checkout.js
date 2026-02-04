@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Product from "./Product";
+import Product from "./Product.js";
 
 const checkoutItemSchema = new mongoose.Schema({
   productId: {
