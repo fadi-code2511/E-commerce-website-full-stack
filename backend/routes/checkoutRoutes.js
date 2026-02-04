@@ -1,9 +1,8 @@
 import express from "express";
 import Checkout from "../models/Checkout.js";
-// import Product from "../models/Product.js";
-// import Cart from "../models/Cart.js";
-// import Order from "../models/Order.js";
 import protect from "../middleware/authMiddleware.js";
+import Order from "../models/Order.js";
+import Cart from "../models/Cart.js";
 
 const router=express.Router();
 
@@ -62,6 +61,48 @@ router.put("/:id/pay",protect,async (req,res) => {
         console.error(error);
         res.status(500).json({message:"Server Error"})
     }
+})
+
+//route: POST api/checkout/:id/finalize.
+//desc: finalize checkout and convert to an order after payment confirmation.
+//access private.
+router.post("/:id/finalize",protect,async (req,res) => {
+ try {
+    const checkout=await Checkout.findById(req.params.id);
+    if(!checkout){return res.status(400).json({message:"no checkout found"})};
+    if(checkout.isPaid && !checkout.isFinalized){
+    const finalOrder= await Order.create({
+        user:checkout.user,
+        orderItems:checkout.checkoutItems,
+        shippingAddress:checkout.shippingAddress,
+        paymentMethode:checkout.paymentMethod,
+        totalPrice:checkout.totalPrice,
+        isPaid:true,
+        isDelivered:false,
+        paidAt:checkout.paidAt,
+        paymentStatus:checkout.paymentStatus,
+        paymentDetails:checkout.paymentDetails,
+    })
+    // mark the checkout as finalized
+    checkout.isFinalized=true;
+    checkout.finalizedAt=Date.now()
+    await checkout.save()
+
+    //delete the cart of the user.
+    await Cart.findOneAndDelete({user:checkout.user})
+    
+    res.status(201).json(finalOrder)
+
+}else if(checkout.isFinalized){
+    res.status(400).json({message:"checkout is already finalized"})
+}else{
+    res.status(400).json({message:"checkout is not paid"})
+}
+    
+ } catch (error) {
+    console.error(error);
+        res.status(500).json({message:"Server Error"})
+ }
 })
 
 export default router

@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Product from "./Product";
+import Product from "./Product.js";
 
 const orderItemSchema = new mongoose.Schema(
   {
@@ -30,7 +30,7 @@ const orderItemSchema = new mongoose.Schema(
   { _id: false },
 );
 
-OrderSchema = new mongoose.Schema({
+const OrderSchema = new mongoose.Schema({
   user: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User",
