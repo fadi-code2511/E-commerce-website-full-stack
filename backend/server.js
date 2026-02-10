@@ -10,6 +10,7 @@ import orderRoutes from "./routes/orderRoutes.js"
 import subscriberRoutes from "./routes/subscriberRoutes.js"
 import adminRoutes from "./routes/adminRoutes.js"
 import ProductAdminRoutes from "./routes/ProductAdminRoutes.js"
+import orderAdminRoutes from "./routes/orderAdminRoutes.js"
 
 const app=express()
 
@@ -38,6 +39,7 @@ app.use("/api/subscribe",subscriberRoutes)
 //admin
 app.use("/api/admin/users",adminRoutes)
 app.use("/api/admin/products",ProductAdminRoutes)
+app.use("/api/admin/orders",orderAdminRoutes)
 
 
 app.listen(PORT,()=>{
