@@ -9,6 +9,7 @@ import checkoutRoutes from "./routes/checkoutRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import subscriberRoutes from "./routes/subscriberRoutes.js"
 import adminRoutes from "./routes/adminRoutes.js"
+import ProductAdminRoutes from "./routes/ProductAdminRoutes.js"
 
 const app=express()
 
@@ -36,6 +37,7 @@ app.use("/api/subscribe",subscriberRoutes)
 
 //admin
 app.use("/api/admin/users",adminRoutes)
+app.use("/api/admin/products",ProductAdminRoutes)
 
 
 app.listen(PORT,()=>{
