@@ -22,5 +22,29 @@ router.get("/",protect,admin,async (req,res) => {
     }
 })
 
+//Route: PUT api/admin/orders/:id
+//DESC: update a status of an order
+//access: private(admin)
+router.put("/:id",protect,admin,async (req,res) => {
+    const {status}=req.body;
+    try {
+        const order=await Order.findById({_id:req.params.id});
+        if(order){
+            
+                order.status=status||order.status;
+                order.isDelivered=status=="Delivered" ? true:order.isDelivered;
+                order.deliverdAt=status=="Delivered" ? Date.now() : order.deliverdAt;
+            
+           const updatedOrder= await order.save()
+            res.json(updatedOrder);
+        }else{
+            res.status(404).json({Message:"no order found"})
+        }
+    } catch (error) {
+            console.error(error);
+    res.status(500).json({ message: "Server Error" });
+    }
+})
+
 
 export default router;
