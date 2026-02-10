@@ -22,12 +22,25 @@ router.get("/",protect,admin,async (req,res) => {
     }
 });
 
-//route: POST api/admin/add.
+//route: POST api/admin/users.
 //desc: add new user.
 //access: private(admin).
-router.post("",async (req,res) => {
+router.post("/",protect,admin,async (req,res) => {
     const{name,email,password,role}=req.body;
     try {
+        const user=await User.findOne({email})
+         if(user){
+            return res.status(400).json({message:"this email user is already exist"});
+        }
+        const newUser=await User.create({
+            name,
+            password,
+            email,
+            role
+        });
+        // console.log(newUser);
+        res.status(200).json(newUser)
+        
         
     } catch (error) {
         console.error(error);
