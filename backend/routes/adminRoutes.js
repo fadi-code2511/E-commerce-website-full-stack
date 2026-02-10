@@ -67,4 +67,22 @@ router.put("/:id", protect, admin, async (req, res) => {
   }
 });
 
+//route: DELETE api/admin/users/id.
+//desc: delete user .
+//access: private(admin).
+router.delete("/:id", protect, admin, async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+    if (!user) {
+      return res.status(400).json({message:"this  user doesn't exist."});
+    }
+    
+     await user.deleteOne();
+      res.status(200).json({message:"user deleted successfully"});
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
+  }
+});
+
 export default router;
