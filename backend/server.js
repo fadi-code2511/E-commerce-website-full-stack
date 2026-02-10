@@ -8,6 +8,7 @@ import CartRoutes from "./routes/CartRoutes.js"
 import checkoutRoutes from "./routes/checkoutRoutes.js"
 import orderRoutes from "./routes/orderRoutes.js"
 import subscriberRoutes from "./routes/subscriberRoutes.js"
+import adminRoutes from "./routes/adminRoutes.js"
 
 const app=express()
 
@@ -24,7 +25,7 @@ const PORT=process.env.PORT || 3000 ;
 
 
 app.get("/",(req,res)=>{
-    res.send("Wlc there")
+    res.send("Wlc to Trendy website")
 })
 app.use("/api/users",userRoutes)
 app.use("/api/products",ProductRoutes)
@@ -32,6 +33,11 @@ app.use("/api/cart",CartRoutes)
 app.use("/api/checkout",checkoutRoutes)
 app.use("/api/orders",orderRoutes)
 app.use("/api/subscribe",subscriberRoutes)
+
+//admin
+app.use("/api/admin/users",adminRoutes)
+
+
 app.listen(PORT,()=>{
     console.log("server is running on prot:",PORT)
 })
