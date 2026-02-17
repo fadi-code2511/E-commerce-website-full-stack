@@ -1,17 +1,20 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router'
 import registerImg from "../assets/registerImg.jpg";
+import { useDispatch } from 'react-redux';
+import { registerUser } from '../redux/slices/authSlice';
 
 
 const Register = () => {
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
     const [name,setName]=useState("")
+    const dispatch=useDispatch();
 
     const handleSubmit=(event)=>{
         event.preventDefault()
         console.log(email,password,name);
-        
+        dispatch(registerUser({email,password,name}))
     }
 
     function handdlePassword(e){
