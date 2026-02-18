@@ -164,10 +164,10 @@ router.get("/", async (req, res) => {
 
     let query={};
     // filter
-    if(collection && collection.toLocalLowerCase()!=="all"){
+    if(collection && collection.toLowerCase()!=="all"){
       query.collections=collection;
     }
-    if (category && category.toLocalLowerCase()!=="all"){
+    if (category && category.toLowerCase()!=="all"){
       query.category=category;
     }
     if (gender){
@@ -230,7 +230,7 @@ router.get("/", async (req, res) => {
 // access public
 router.get("/best-seller",async (req,res) => {
   try {
-    const bestProduct=await Product.find().sort({rating:-1}).limit(1);
+    const bestProduct=await Product.findOne().sort({rating:-1});
     if (bestProduct){
       res.json(bestProduct)
     }else{
@@ -262,24 +262,6 @@ router.get("/new-arrivals",async (req,res) => {
 })
 
 
-
-//GET api/products/:id
-//get product by ID
-// access public
-router.get("/:id",async (req,res) => {
-  try {
-    const product=await Product.findById(req.params.id);
-    if(product){
-      res.json(product);
-    }else{
-      res.status(404).send("Product not found");
-    }
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({message:"server Error"})
-  }
-})
-
 //GET api/products/similar/:id
 // get similar products based on the current product's gender category
 /// access public
@@ -303,6 +285,24 @@ router.get("/similar/:id",async (req,res) => {
     res.status(500).send("Server Error")
   }
 })
+
+//GET api/products/:id
+//get product by ID
+// access public
+router.get("/:id",async (req,res) => {
+  try {
+    const product=await Product.findById(req.params.id);
+    if(product){
+      res.json(product);
+    }else{
+      res.status(404).send("Product not found");
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({message:"server Error"})
+  }
+})
+
 
 
 
