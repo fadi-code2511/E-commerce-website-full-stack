@@ -3,11 +3,25 @@ import { FaFilter } from "react-icons/fa";
 import FilterSidebar from "../components/Products/FilterSidebar";
 import ProudctsGrid from "../components/Products/ProudctsGrid";
 import SortOptions from "../components/Products/SortOptions";
+import { useParams, useSearchParams } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
+import { fectchProductsByFilters } from "../redux/slices/productsSlice";
 
 const CollectionPage = () => {
-  const [products, setProducts] = useState([]);
+  const { collection } = useParams();  //reading from (path)
+  const [searchParams] = useSearchParams();//readinf from (query)
+  const dispatch = useDispatch();
+  const { products, loading, error } = useSelector((state) => state.products);
+  const queryParams = Object.fromEntries([...searchParams]);  //convert searchParams to an object
+  // console.log(searchParams) to check the type of searchParams
+
+  // const [products, setProducts] = useState([]); hardcoded
   const [isSidebarOpen, setisSidebarOpen] = useState(false);
   const sidebarRef = useRef(null);
+
+  useEffect(() => {
+    dispatch(fectchProductsByFilters({ collection, ...queryParams }));
+  }, [dispatch, collection, searchParams]);
 
   function handleClickOutside(e) {
     if (sidebarRef.current && !sidebarRef.current.contains(e.target)) {
@@ -24,63 +38,63 @@ const CollectionPage = () => {
   function toggleSidebar() {
     setisSidebarOpen(!isSidebarOpen);
   }
-  useEffect(() => {
-    setTimeout(() => {
-      const fetchedProducts = [
-        {
-          _id: 1,
-          name: "product1",
-          price: 50,
-          image: [{ url: "https://picsum.photos/id/11/500/500" }],
-        },
+  // useEffect(() => {   hardcoded
+  //   setTimeout(() => {
+  //     const fetchedProducts = [
+  //       {
+  //         _id: 1,
+  //         name: "product1",
+  //         price: 50,
+  //         images: [{ url: "https://picsum.photos/id/11/500/500" }],
+  //       },
 
-        {
-          _id: 2,
-          name: "product2",
-          price: 20,
-          image: [{ url: "https://picsum.photos/id/22/500/500" }],
-        },
-        {
-          _id: 3,
-          name: "product3",
-          price: 30,
-          image: [{ url: "https://picsum.photos/id/33/500/500" }],
-        },
-        {
-          _id: 4,
-          name: "product4",
-          price: 40,
-          image: [{ url: "https://picsum.photos/id/44/500/500" }],
-        },
-        {
-          _id: 5,
-          name: "product1",
-          price: 50,
-          image: [{ url: "https://picsum.photos/id/11/500/500" }],
-        },
+  //       {
+  //         _id: 2,
+  //         name: "product2",
+  //         price: 20,
+  //         images: [{ url: "https://picsum.photos/id/22/500/500" }],
+  //       },
+  //       {
+  //         _id: 3,
+  //         name: "product3",
+  //         price: 30,
+  //         images: [{ url: "https://picsum.photos/id/33/500/500" }],
+  //       },
+  //       {
+  //         _id: 4,
+  //         name: "product4",
+  //         price: 40,
+  //         images: [{ url: "https://picsum.photos/id/44/500/500" }],
+  //       },
+  //       {
+  //         _id: 5,
+  //         name: "product1",
+  //         price: 50,
+  //         images: [{ url: "https://picsum.photos/id/11/500/500" }],
+  //       },
 
-        {
-          _id: 6,
-          name: "product2",
-          price: 20,
-          image: [{ url: "https://picsum.photos/id/22/500/500" }],
-        },
-        {
-          _id: 7,
-          name: "product3",
-          price: 30,
-          image: [{ url: "https://picsum.photos/id/33/500/500" }],
-        },
-        {
-          _id: 8,
-          name: "product4",
-          price: 40,
-          image: [{ url: "https://picsum.photos/id/44/500/500" }],
-        },
-      ];
-      setProducts(fetchedProducts);
-    }, 1000);
-  }, []);
+  //       {
+  //         _id: 6,
+  //         name: "product2",
+  //         price: 20,
+  //         images: [{ url: "https://picsum.photos/id/22/500/500" }],
+  //       },
+  //       {
+  //         _id: 7,
+  //         name: "product3",
+  //         price: 30,
+  //         images: [{ url: "https://picsum.photos/id/33/500/500" }],
+  //       },
+  //       {
+  //         _id: 8,
+  //         name: "product4",
+  //         price: 40,
+  //         images: [{ url: "https://picsum.photos/id/44/500/500" }],
+  //       },
+  //     ];
+  //     setProducts(fetchedProducts);
+  //   }, 1000);
+  // }, []);
 
   return (
     <div className="flex flex-col lg:flex-row ">
@@ -106,7 +120,7 @@ const CollectionPage = () => {
         {/* sort options */}
         <SortOptions />
         {/* products grid */}
-        <ProudctsGrid products={products} />
+        <ProudctsGrid products={products} loading={loading} error={error} />
       </div>
     </div>
   );

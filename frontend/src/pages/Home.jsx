@@ -87,7 +87,7 @@ function Home(){
     const fetchBestSeller=async()=>{
       try {
         const response=await axios.get(`${import.meta.env.VITE_BACKEND_URL}/api/products/best-seller`);
-        setBestSellerProduct(response.data[0]);
+        setBestSellerProduct(response.data);
         
       } catch (error) {
         console.error(error)

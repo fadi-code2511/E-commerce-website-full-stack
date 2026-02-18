@@ -29,25 +29,25 @@ function Navbar() {
         {/* Navigation-links-middle */}
         <div className=" md:flex hidden space-x-6">
           <Link
-            to="/collection/all"
+            to="/collection/all?gender=Men"
             className=" text-sm font-medium text-gray-700 hover:text-black uppercase"
           >
             men
           </Link>
           <Link
-            to="#"
+            to="/collection/all?gender=Women"
             className=" text-sm font-medium text-gray-700 hover:text-black uppercase"
           >
             women
           </Link>
           <Link
-            to="#"
+            to="/collection/all?category=Top Wear"
             className=" text-sm font-medium text-gray-700 hover:text-black uppercase"
           >
             topwear
           </Link>
           <Link
-            to="#"
+            to="/collection/all?category=Bottom Wear"
             className=" text-sm font-medium text-gray-700 hover:text-black uppercase"
           >
             bottomwear
@@ -102,28 +102,28 @@ function Navbar() {
           <nav className="flex flex-col space-y-2">
             
           <Link
-            to="#"
+            to="/collection/all?gender=Men"
             onClick={toggleMenuBurger}
             className=" text-gray-600 mt-5 hover:text-black uppercase"
           >
             men
           </Link>
           <Link
-            to="#"
+            to="/collection/all?gender=Women"
             onClick={toggleMenuBurger}
             className=" text-gray-600  hover:text-black uppercase"
           >
             women
           </Link>
           <Link
-            to="#"
+            to="/collection/all?category=Top Wear"
             onClick={toggleMenuBurger}
             className=" text-gray-600  hover:text-black uppercase"
           >
             topwear
           </Link>
           <Link
-            to="#"
+            to="/collection/all?category=Bottom Wear"
             onClick={toggleMenuBurger}
             className=" text-gray-600 hover:text-black uppercase"
           >
