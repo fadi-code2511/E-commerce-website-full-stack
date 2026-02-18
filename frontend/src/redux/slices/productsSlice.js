@@ -3,7 +3,7 @@ import axios from "axios";
 
 // Async thunk to fetch products by collections and filters
 export const fectchProductsByFilters = createAsyncThunk(
-  "poducts/fetchByFilters",
+  "products/fetchByFilters",
   async ({
     collection,
     category,
@@ -44,7 +44,7 @@ export const fetchProductDetails = createAsyncThunk(
   "products/fetchProductDetails",
   async (id) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/porducts/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
     );
     return response.data;
   },
@@ -55,7 +55,7 @@ export const fethcSimilarProducts = createAsyncThunk(
   "products/fethcSimilarProducts",
   async (id) => {
     const response = await axios.get(
-      `${import.meta.env.VITE_BACKEND_URL}/api/porducts/similar/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/products/similar/${id}`,
     );
     return response.data;
   },
@@ -66,7 +66,7 @@ export const updateProduct = createAsyncThunk(
   "products/updateProduct",
   async ({ id, productData }) => {
     const response = await axios.put(
-      `${import.meta.env.VITE_BACKEND_URL}/api/porducts/${id}`,
+      `${import.meta.env.VITE_BACKEND_URL}/api/products/${id}`,
       productData,
       {
         headers: {
@@ -144,7 +144,7 @@ const productsSlice = createSlice({
     })
     builder.addCase(fetchProductDetails.fulfilled,(state,action)=>{
         state.loading=false;
-        state.products=action.payload;
+        state.selectedProduct=action.payload;
     })
     builder.addCase(fetchProductDetails.rejected,(state,action)=>{
         state.loading=false;
@@ -159,7 +159,7 @@ const productsSlice = createSlice({
     builder.addCase(updateProduct.fulfilled,(state,action)=>{
         state.loading=false;
         const updatedProduct=action.payload;
-        const index=state.products.findIndex(product=>product.id===updatedProduct.id)
+        const index=state.products.findIndex(product=>product._id===updatedProduct._id)
         if(index!==-1){
             state.products[index]=updatedProduct;
         }
