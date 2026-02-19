@@ -1,14 +1,35 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router'
+import React, { useEffect, useState } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router'
 import loginImg from "../assets/loginImg.jpg";
 import { loginUser } from '../redux/slices/authSlice.js';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { mergeCart } from "../redux/slices/cartSlice.js";
 
 
 const Login = () => {
     const [email,setEmail]=useState("")
     const [password,setPassword]=useState("")
      const dispatch=useDispatch();
+     const navigate=useNavigate();
+     const location=useLocation();
+     const {user,guestId}=useSelector((state)=>state.auth);
+     const {cart}=useSelector((state)=>state.cart);
+
+     //get redirect parameter and check if it checkout somthing
+     const redirect= new URLSearchParams(location.search).get("redirect")||"/";
+     const isCheckoutRedirect=redirect.includes("checkout");
+
+     useEffect(()=>{
+        if (user){
+            if(cart?.products.length>0 && guestId){
+                dispatch(mergeCart({guestId,user})).then(()=>{
+                    navigate(isCheckoutRedirect ? "/checkout": "/")
+                })
+            }else{
+                navigate(isCheckoutRedirect ? "/checkout": "/")
+            }
+        }
+     },[user,guestId,cart,navigate,isCheckoutRedirect,dispatch])
 
     function handdlePassword(e){
         setPassword(e.target.value)
@@ -37,7 +58,7 @@ const Login = () => {
                         <input value={password} onChange={handdlePassword} type="text" required name='password'placeholder='Enter you password '  className=' text-gray-700 p-1 placeholder:text-sm border rounded outline-blue-400 mb-2' />
                     </div>
                     <button className='bg-black p-2 text-sm rounded-md mb-4 text-white' >SignIn</button>
-                    <p className=' text-center text-sm tracking-tighter'>Dont have an account? <Link to="/register" className='text-sm text-blue-400 font-bold  '>Register now</Link></p>
+                    <p className=' text-center text-sm tracking-tighter'>Dont have an account? <Link to={`/register?redirect=${encodeURIComponent(redirect)}`} className='text-sm text-blue-400 font-bold  '>Register now</Link></p>
                 </div>
             </form>
         </div>
