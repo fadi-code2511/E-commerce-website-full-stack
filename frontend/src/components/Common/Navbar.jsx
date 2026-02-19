@@ -5,8 +5,12 @@ import SearchBar from "./SearchBar";
 import CartDrawer from "../Layout/CartDrawer";
 import { useState } from "react";
 import { IoMdClose } from "react-icons/io";
+import { useSelector } from "react-redux";
 
 function Navbar() {
+  const {cart}=useSelector((state)=>state.cart);
+  const cartItemsQuantity=cart?.products?.reduce((total,product)=> total+product.quantity,0) || 0;
+
   const [drawOpen, setDrawOpen] = useState(false);
   const [menuBurgerOpen, setMenuBurger] = useState(false);
   function toggleCartDrawer() {
@@ -66,9 +70,12 @@ function Navbar() {
             onClick={toggleCartDrawer}
           >
             <HiOutlineShoppingBag className="h-6 w-6 text-gray-700" />
+            {cartItemsQuantity>0 &&
+             ( 
             <span className=" bg-red-700 text-white absolute text-xs py-0.5 px-1.5 -top-1 rounded-full">
-              5
-            </span>
+              {cartItemsQuantity}
+            </span>)
+          }
           </button>
           {/* search-bar */}
           <div>
