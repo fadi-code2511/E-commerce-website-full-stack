@@ -1,9 +1,16 @@
 import { useState } from "react";
 import { HiMagnifyingGlass, HiMiniXMark } from "react-icons/hi2";
+import { useDispatch} from "react-redux";
+import { useNavigate } from "react-router";
+import { fectchProductsByFilters, setFilters } from "../../redux/slices/productsSlice";
+
 
 const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [isOpen, setIsOpen] = useState(false);
+
+  const dispatch=useDispatch();
+  const navigate=useNavigate()
 
   function handleSearchToggle() {
     setIsOpen(!isOpen);
@@ -13,7 +20,10 @@ const SearchBar = () => {
   }
   function handleFormSubmit(e){
     e.preventDefault()
-    console.log("we are in the search bar:",searchTerm);
+    // console.log("we are in the search bar:",searchTerm);
+    dispatch(setFilters({search:searchTerm}));
+    dispatch(fectchProductsByFilters({search:searchTerm}))
+    navigate(`/collection/all?search=${searchTerm}`)
     setSearchTerm("")
     setIsOpen(!isOpen)
     

@@ -14,9 +14,9 @@ const SortOptions = () => {
       value={searchParams.get("sortBy") || ""}  // we used .get becouse when we do a refresh , the ui will get the vlaue from url
        name="" id="" className="border p-2 focus:outline-none rounded-md ">
         <option value="" className=" text-sm ">Default</option>
-        <option value="PriceAsc" className=" text-sm " >Price: low to high</option>
-        <option value="PriceDsc" className=" text-sm " >Price: high to low</option>
-        <option value="Popularity" className=" text-sm " >Popularity</option>
+        <option value="priceAsc" className=" text-sm " >Price: low to high</option>
+        <option value="priceDsc" className=" text-sm " >Price: high to low</option>
+        <option value="popularity" className=" text-sm " >Popularity</option>
       </select>
     </div>
   );
