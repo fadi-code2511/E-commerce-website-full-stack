@@ -45,7 +45,7 @@ const authSlice=createSlice({
     initialState,
     reducers:{
         logout:(state)=>{
-            state.name=null;
+            state.user=null;
             state.guestId=`guestId_${new Date().getTime()}`;//reset guestId on logout
             localStorage.removeItem("userInfo");
             localStorage.removeItem("userToken");
@@ -77,7 +77,7 @@ const authSlice=createSlice({
         })
         builder.addCase(registerUser.fulfilled,(state,action)=>{
             state.loading=false;
-            state.error=action.payload;
+            state.user=action.payload;
         })
         builder.addCase(registerUser.rejected,(state,action)=>{
             state.loading=false;
